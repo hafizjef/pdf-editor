@@ -1,20 +1,20 @@
-import svelte from 'rollup-plugin-svelte';
-import open from 'open';
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import livereload from 'rollup-plugin-livereload';
-import { terser } from 'rollup-plugin-terser';
-import sveltePreprocess from 'svelte-preprocess';
+import svelte from "rollup-plugin-svelte";
+import open from "open";
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import livereload from "rollup-plugin-livereload";
+import { terser } from "rollup-plugin-terser";
+import sveltePreprocess from "svelte-preprocess";
 
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
-  input: 'src/main.js',
+  input: "src/main.js",
   output: {
     sourcemap: true,
-    format: 'iife',
-    name: 'app',
-    file: 'public/build/bundle.js',
+    format: "iife",
+    name: "app",
+    file: "public/build/bundle.js",
   },
   plugins: [
     svelte({
@@ -24,17 +24,17 @@ export default {
       // we'll extract any component CSS out into
       // a separate file - better for performance
       css: (css) => {
-        css.write('public/build/bundle.css');
+        css.write("bundle.css");
       },
     }),
 
     resolve({
       browser: true,
-      dedupe: ['svelte'],
+      dedupe: ["svelte"],
     }),
     commonjs(),
     !production && serve(),
-    !production && livereload('public'),
+    !production && livereload("public"),
     production && terser(),
   ],
   watch: {
@@ -50,11 +50,11 @@ function serve() {
       if (!started) {
         started = true;
 
-        require('child_process').spawn('yarn', ['start', '--dev'], {
-          stdio: ['ignore', 'inherit', 'inherit'],
+        require("child_process").spawn("yarn", ["start", "--dev"], {
+          stdio: ["ignore", "inherit", "inherit"],
           shell: true,
         });
-        open('http://localhost:5000');
+        open("http://localhost:5000");
       }
     },
   };
